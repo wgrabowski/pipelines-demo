@@ -1,0 +1,13 @@
+<fieldset>
+  <legend>Giga Sumator &trade;</legend>
+
+  <label>
+    <input type='number' placeholder='Number A' [(ngModel)]='numberA'>
+  </label>
+  <label>
+    <input type='number' placeholder='Number B' [(ngModel)]='numberB'>
+  </label>
+  <pipelines-demo-button label='SUM' (action)='sum()'></pipelines-demo-button>
+  <br>
+  <output>{{result}}</output>
+</fieldset>

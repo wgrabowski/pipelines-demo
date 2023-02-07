@@ -1,0 +1,13 @@
+{
+  "extends": [
+    "stylelint-config-standard-scss",
+    "stylelint-config-prettier-scss"
+  ],
+  "rules": {
+    "number-leading-zero": "always",
+    "no-empty-source": [{
+      "severity": "warning"
+    }
+    ]
+  }
+}

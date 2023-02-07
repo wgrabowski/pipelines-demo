@@ -71,6 +71,9 @@
         "lintFilePatterns": ["./src/**/*.ts", "./src/**/*.html"]
       }
     },
+    "stylelint": {
+      "executor": "nx-stylelint:lint"
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectName}"],

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pipelines-demo/logic": ["logic/src/index.ts"],
       "@pipelines-demo/ui": ["ui/src/index.ts"]
     }
   },
