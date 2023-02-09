@@ -11,13 +11,13 @@ pipeline {
       parallel {
         stage('lint:ts') {
           steps {
-            sh 'nx affected --target=lint --base=$CHANGE_TARGET --head=$CHANGE_BRANCH'
+            sh 'nx affected --target=lint --base=origin/$CHANGE_TARGET'
           }
         }
 
         stage('lint:styles') {
           steps {
-            sh 'nx affected --target=stylelint --base=$CHANGE_TARGET --head=$CHANGE_BRANCH'
+            sh 'nx affected --target=stylelint --base=origin/$CHANGE_TARGET'
           }
         }
 
@@ -32,13 +32,13 @@ pipeline {
 
     stage('test affected') {
       steps {
-        sh 'nx affected --target=test --base=$CHANGE_TARGET --head=$CHANGE_BRANCH'
+        sh 'nx affected --target=test --base=origin/$CHANGE_TARGET'
       }
     }
 
     stage('build affected') {
       steps {
-        sh 'nx affected --target=build --base=$CHANGE_TARGET --head=$CHANGE_BRANCH'
+        sh 'nx affected --target=build --base=origin/$CHANGE_TARGET'
       }
     }
 
