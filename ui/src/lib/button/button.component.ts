@@ -6,8 +6,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent {
-  @Input() disabled: boolean = false;
-  @Input() label: string = 'Kliknij';
+  @Input() disabled = false;
+  @Input() label = 'Kliknij';
   @Output() action: EventEmitter<void> = new EventEmitter<void>();
 }
 
