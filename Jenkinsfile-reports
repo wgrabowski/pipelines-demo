@@ -8,7 +8,9 @@ pipeline {
     }
 
     stage('production build with json stats') {
+      steps{
       sh 'npx --yes nx build  --delete-output-path --prod --statsJson=true --skip-nx-cache'
+      }
     }
 
 
