@@ -1,0 +1,46 @@
+pipeline {
+  agent any
+  stages {
+    stage('setup') {
+      steps {
+        sh 'npm ci'
+      }
+    }
+
+    stage('production build with json stats') {
+      sh 'npx --yes nx build  --delete-output-path --prod --statsJson=true --skip-nx-cache'
+    }
+
+
+    stage('generate reports'){
+       parallel{
+        stage ('Analyze bundle with webpack-bundle-analyzer') {
+          steps {
+            sh 'npx --yes webpack-bundle-analyzer --mode static --no-open --report reports/0-webpack-bundle-analyzer.html dist/apps/improver/stats.json'
+          }
+        }
+
+        stage ('Generate NX dependency graph') {
+          steps {
+            sh 'npx --yes nx graph --file reports/1-nx-dep-graph.html'
+          }
+        }
+
+        stage('Generate unit test report'){
+          steps {
+            sh 'npx cross-env JEST_HTML_REPORTERS_PUBLIC_PATH=./reports JEST_HTML_REPORTERS_FILE_NAME=2-jest-tests.html nx test --reporters=jest-html-reporters'
+          }
+        }
+      }
+    }
+    stage('Publish reports as HTML') {
+      steps {
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, includes: '**/*', keepAll: true, reportDir: 'reports', reportFiles: '', reportName: 'Report', reportTitles: ''])
+      }
+    }
+
+  }
+  environment {
+    ENV = 'production'
+  }
+}
