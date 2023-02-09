@@ -1,0 +1,49 @@
+pipeline {
+  agent any
+  stages {
+    stage('setup') {
+      steps {
+        sh 'npm ci'
+      }
+    }
+
+    stage('check affected') {
+      parallel {
+        stage('lint:ts') {
+          steps {
+            sh 'nx affected --target=lint'
+          }
+        }
+
+        stage('lint:styles') {
+          steps {
+            sh 'nx affected --target=stylelint'
+          }
+        }
+
+        stage('npm audit') {
+          steps {
+            sh 'npm audit'
+          }
+        }
+
+      }
+    }
+
+    stage('test affected') {
+      steps {
+        sh 'nx affected --target=test'
+      }
+    }
+
+    stage('build affected') {
+      steps {
+        sh 'nx affected --target=build'
+      }
+    }
+
+  }
+  environment {
+    ENV = 'production'
+  }
+}
