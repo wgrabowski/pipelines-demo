@@ -11,13 +11,13 @@ pipeline {
       parallel {
         stage('lint:ts') {
           steps {
-            sh 'npx run-many --target=lint'
+            sh 'nx run-many --target=lint'
           }
         }
 
         stage('lint:styles') {
           steps {
-            sh 'npx run-many --target=stylelint'
+            sh 'nx run-many --target=stylelint'
           }
         }
 
