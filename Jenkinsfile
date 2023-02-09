@@ -8,6 +8,7 @@ pipeline {
     }
 
     stage('check') {
+
       parallel {
         stage('lint:ts') {
           steps {
@@ -31,9 +32,19 @@ pipeline {
     }
 
     stage('test') {
-      steps {
-        sh 'nx run-many --target=test'
-      }
+      parallel{
+        stage('test:unit') {
+          steps {
+            sh 'nx run-many --target=test'
+          }
+        }
+        
+        stage('test:e2e') {
+          steps {
+            sh 'nx run e2e:e2e'
+          }
+        }
+      }      
     }
 
     stage('build') {
