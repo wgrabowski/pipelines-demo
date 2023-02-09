@@ -11,13 +11,13 @@ pipeline {
       parallel {
         stage('lint:ts') {
           steps {
-            sh 'nx affected --target=lint'
+            sh 'nx affected --target=lint --base=origin/$CHANGE_TARGET'
           }
         }
 
         stage('lint:styles') {
           steps {
-            sh 'nx affected --target=stylelint'
+            sh 'nx affected --target=stylelint --base=origin/$CHANGE_TARGET'
           }
         }
 
@@ -32,15 +32,24 @@ pipeline {
 
     stage('test affected') {
       steps {
-        sh 'nx affected --target=test'
+        sh 'nx affected --target=test --base=origin/$CHANGE_TARGET'
       }
     }
 
     stage('build affected') {
       steps {
-        sh 'nx affected --target=build'
+        sh 'nx affected --target=build --base=origin/$CHANGE_TARGET'
       }
     }
+
+    post {
+      success {
+        publishChecks name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
+      }
+      failure {
+        publishChecks conclusion: 'FAILURE', name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
+      }
+}
 
   }
   environment {
