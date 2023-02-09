@@ -3,6 +3,9 @@
     ".stylelintrc.json": "*"
   },
   "npmScope": "pipelines-demo",
+  "affected": {
+    "defaultBase": "origin/master"
+  },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
