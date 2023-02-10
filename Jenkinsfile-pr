@@ -42,13 +42,13 @@ pipeline {
       }
     }
 
-    post {
-      success {
-        publishChecks name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
-      }
-      failure {
-        publishChecks conclusion: 'FAILURE', name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
-      }
+    // post {
+    //   success {
+    //     publishChecks name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
+    //   }
+    //   failure {
+    //     publishChecks conclusion: 'FAILURE', name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
+    //   }
 }
 
   }
