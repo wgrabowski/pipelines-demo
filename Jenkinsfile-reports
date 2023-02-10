@@ -18,7 +18,7 @@ pipeline {
        parallel{
         stage ('Analyze bundle with webpack-bundle-analyzer') {
           steps {
-            sh 'npx --yes webpack-bundle-analyzer --mode static --no-open --report reports/0-webpack-bundle-analyzer.html dist/apps/improver/stats.json'
+            sh 'npx --yes webpack-bundle-analyzer --mode static --no-open --report reports/0-webpack-bundle-analyzer.html dist/pipelines-demo/stats.json'
           }
         }
 
