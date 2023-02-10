@@ -49,7 +49,7 @@ pipeline {
     //   failure {
     //     publishChecks conclusion: 'FAILURE', name: 'pr-checker', summary: 'PR has been verified by Jenkins job', title: 'pr-checker'
     //   }
-}
+// }
 
   }
   environment {
